@@ -62,6 +62,15 @@ npx prisma init
 npm install @prisma/client
 ```
 
+### Add Prisma model and run migration
+
+Prisma model must be placed in `schema.prisma`
+
+```bash
+# running migration
+npx prisma migrate dev --name init
+```
+
 ## Test
 
 ```bash
