@@ -100,6 +100,48 @@ nest generate service prisma
 
 Makes Prisma module as Global and import in AppModule, this way any module can inject PrismaService without the need to import PrismaModule.
 
+## Create resources
+
+```bash
+# create resource
+nest generate resource categories
+```
+
+```typescript
+// add ApiTags in Controller to group categories endpoints on Swagger
+@Controller('categories')
+@ApiTags('categories')
+export class CategoriesController {...}
+
+// inject PrismaService in CategoriesService
+export class CategoriesController {
+  constructor(private readonly categoriesService: CategoriesService) {}
+}
+
+// add ApiProperty in DTOs to appears on Swagger
+export class CreateCategoryDto {
+  @ApiProperty()
+  name: string;
+}
+
+// add ApiProperty in Entities to appears on Swagger
+export class CategoryEntity implements Category {
+  @ApiProperty()
+  id: number;
+
+  @ApiProperty()
+  name: string;
+}
+
+// add decorator response on endpoints
+@Post()
+@ApiCreatedResponse({ type: CategoryEntity })
+create(@Body() createCategoryDto: CreateCategoryDto) {
+  return this.categoriesService.create(createCategoryDto);
+}
+
+```
+
 ## Test
 
 ```bash
