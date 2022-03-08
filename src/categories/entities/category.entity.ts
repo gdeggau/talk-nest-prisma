@@ -7,4 +7,8 @@ export class CategoryEntity implements Category {
 
   @ApiProperty()
   name: string;
+
+  constructor(partial: Partial<CategoryEntity>) {
+    Object.assign(this, partial);
+  }
 }

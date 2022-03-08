@@ -20,34 +20,39 @@ export class CategoriesController {
 
   @Post()
   @ApiCreatedResponse({ type: CategoryEntity })
-  create(@Body() createCategoryDto: CreateCategoryDto) {
-    return this.categoriesService.create(createCategoryDto);
+  async create(@Body() createCategoryDto: CreateCategoryDto) {
+    return new CategoryEntity(
+      await this.categoriesService.create(createCategoryDto),
+    );
   }
 
   @Get()
   @ApiOkResponse({ type: [CategoryEntity] })
-  findAll() {
-    return this.categoriesService.findAll();
+  async findAll() {
+    const categories = await this.categoriesService.findAll();
+    return categories.map((category) => new CategoryEntity(category));
   }
 
   @Get(':id')
   @ApiOkResponse({ type: CategoryEntity })
-  findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return new CategoryEntity(await this.categoriesService.findOne(+id));
   }
 
   @Patch(':id')
   @ApiCreatedResponse({ type: CategoryEntity })
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(+id, updateCategoryDto);
+    return new CategoryEntity(
+      await this.categoriesService.update(+id, updateCategoryDto),
+    );
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: CategoryEntity })
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return new CategoryEntity(await this.categoriesService.remove(+id));
   }
 }

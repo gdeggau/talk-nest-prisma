@@ -140,6 +140,29 @@ create(@Body() createCategoryDto: CreateCategoryDto) {
   return this.categoriesService.create(createCategoryDto);
 }
 
+// create resources to Items...
+```
+
+## Validations
+
+Nest has a build in `ValidationPipe` which uses the powerful `class-validator` package to filter and validate requests.
+
+```bash
+# install dependencies
+npm install class-transformer class-validator
+```
+
+```typescript
+// add ValidationPipe in main.ts
+app.useGlobalPipes(new ValidationPipe());
+
+// add decorators in DTOs
+@IsNotEmpty()
+@MinLength(3)
+
+// transform/serialize responses, add follow line in main.ts
+app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
 ```
 
 ## Test
