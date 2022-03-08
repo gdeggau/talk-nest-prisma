@@ -35,6 +35,18 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Swagger
+
+```bash
+# add swagger dependencies
+npm install --save @nestjs/swagger swagger-ui-express
+```
+
+### Basic Config
+
+It is necessary add [SwaggerModule](https://docs.nestjs.com/openapi/introduction#bootstrap) config in `main.ts` file.
+After that it is possible to see OpenAPI specification accessing http://localhost:3000/api
+
 ## Test
 
 ```bash
