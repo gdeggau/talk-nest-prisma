@@ -88,6 +88,18 @@ npx prisma db seed
 npx prisma studio
 ```
 
+### Create a module and service for PrismaClient
+
+```bash
+# create module
+nest generate module prisma
+
+# create service
+nest generate service prisma
+```
+
+Makes Prisma module as Global and import in AppModule, this way any module can inject PrismaService without the need to import PrismaModule.
+
 ## Test
 
 ```bash
