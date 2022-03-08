@@ -47,6 +47,21 @@ npm install --save @nestjs/swagger swagger-ui-express
 It is necessary add [SwaggerModule](https://docs.nestjs.com/openapi/introduction#bootstrap) config in `main.ts` file.
 After that it is possible to see OpenAPI specification accessing http://localhost:3000/api
 
+## Prisma
+
+[NestJS with Prisma documentation](https://docs.nestjs.com/recipes/prisma)
+
+```bash
+# add prisma
+npm install prisma
+
+# initialize prisma
+npx prisma init
+
+# add prisma client
+npm install @prisma/client
+```
+
 ## Test
 
 ```bash
