@@ -71,6 +71,23 @@ Prisma model must be placed in `schema.prisma`
 npx prisma migrate dev --name init
 ```
 
+### Seed some items and categories
+
+Inside `prisma/seed.td` will have a database seed to Items and Categories. More information can be find [here](https://www.prisma.io/docs/guides/database/seed-database).
+
+```bash
+# add in package.json
+"prisma": {
+  "seed": "ts-node prisma/seed.ts"
+}
+
+# run seed
+npx prisma db seed
+
+# check in studio if all is right
+npx prisma studio
+```
+
 ## Test
 
 ```bash
