@@ -8,15 +8,19 @@ npm i -g @nestjs/cli
 nest new project-name
 ```
 
-## Description
+## Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Controller** - Responsible for handle HTTP request from client. It get the request, parse it, delegate respective params to providers and send a response to the client.
 
-## Installation
+- **Providers** - Are services, repositories, factories, helpers... All that will be injected as dependency.
 
-```bash
-$ npm install
-```
+- **Service** - It's used to implement business rules, normally saving and retrieving data from a storage.
+
+- **Module** - It's a set of relationed capabilities. A module accepts a object with following properties:
+  - _providers_ - the providers that will be instantiated by the Nest injector and that may be shared at least across this module
+  - _controllers_ - the set of controllers defined in this module which have to be instantiated
+  - _imports_ - the list of imported modules that export the providers which are required in this module
+  - _exports_ - the subset of providers that are provided by this module and should be available in other modules which import this module. You can use either the provider itself or just its token (provide value)
 
 ## Running the app
 
@@ -43,17 +47,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
