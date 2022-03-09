@@ -26,13 +26,13 @@ nest new project-name
 
 ```bash
 # development
-$ npm run start
+npm run start
 
 # watch mode
-$ npm run start:dev
+npm run start:dev
 
 # production mode
-$ npm run start:prod
+npm run start:prod
 ```
 
 ## Swagger
@@ -182,15 +182,51 @@ const { httpAdapter } = app.get(HttpAdapterHost);
 app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
 ```
 
+## Authentication
+
+```bash
+# install passport-jwt
+npm install --save @nestjs/passport passport @nestjs/jwt passport-jwt
+npm install --save-dev @types/passport-jwt
+```
+
+Add User model to Prisma, migrate and generate resources
+
+```typescript
+model User {
+  id        Int   @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name     String?
+  email    String  @unique
+  password String
+}
+```
+
+```bash
+# migrate
+npx prisma migrate dev --name user
+
+# resources
+nest g res auth
+```
+
+Configure passport in `AuthModule` and implement services/controllers.
+
+Create `src/auth/jwt.strategy.ts` and create configuration to it.
+
+Enable bearer auth for Swagger in main.ts.
+
 ## Test
 
 ```bash
 # unit tests
-$ npm run test
+npm run test
 
 # e2e tests
-$ npm run test:e2e
+npm run test:e2e
 
 # test coverage
-$ npm run test:cov
+npm run test:cov
 ```

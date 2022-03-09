@@ -6,14 +6,21 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ItemEntity } from './entities/item.entity';
 import { ItemCategoryEntity } from './entities/item-category.entity';
 import { CategoryEntity } from '@/categories/entities/category.entity';
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard';
 
 @Controller('items')
 @ApiTags('items')
@@ -21,6 +28,8 @@ export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: ItemEntity })
   async create(@Body() createItemDto: CreateItemDto) {
     return new ItemEntity(await this.itemsService.create(createItemDto));
@@ -34,6 +43,8 @@ export class ItemsController {
   }
 
   @Get('drafts')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: [ItemEntity] })
   async findAllDrafts() {
     const items = await this.itemsService.findAllDrafts();
@@ -49,6 +60,8 @@ export class ItemsController {
   }
 
   @Patch(':slug')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ItemEntity })
   async update(
     @Param('slug') slug: string,
@@ -58,6 +71,8 @@ export class ItemsController {
   }
 
   @Delete(':slug')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ItemEntity })
   async remove(@Param('slug') slug: string) {
     return new ItemEntity(await this.itemsService.remove(slug));
