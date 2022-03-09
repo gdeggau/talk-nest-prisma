@@ -7,10 +7,19 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // binds ValidationPipe to the entire application
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
 
   // apply transform to all responses
-  // app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalInterceptors(
+    new ClassSerializerInterceptor(app.get(Reflector), {
+      strategy: 'excludeAll',
+    }),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('NestJS Prisma Tech Talk')

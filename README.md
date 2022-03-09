@@ -42,15 +42,6 @@ $ npm run start:prod
 npm install --save @nestjs/swagger swagger-ui-express
 ```
 
-Nest provide a [Swagger CLI Plugin](https://docs.nestjs.com/openapi/cli-plugin#using-the-cli-plugin) to automatically generate the types definition
-
-```typescript
-// add this to nest-cli.json
-"compilerOptions": {
-  "plugins": ["@nestjs/swagger"]
-}
-```
-
 ### Basic Config
 
 It is necessary add [SwaggerModule](https://docs.nestjs.com/openapi/introduction#bootstrap) config in `main.ts` file.
