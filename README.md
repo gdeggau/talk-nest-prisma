@@ -162,7 +162,24 @@ app.useGlobalPipes(new ValidationPipe());
 
 // transform/serialize responses, add follow line in main.ts
 app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+```
 
+## Error handling
+
+Prisma error's it necessary to be handled by a [exception filter](https://docs.nestjs.com/exception-filters).
+
+```bash
+# generate an exception filter
+nest generate filter prisma-client-exception
+```
+
+Check all Prisma error code on the [Prisma docs]() and create `prisma.errors.ts` enum to show error codes in a better way.
+
+After implement `PrismaClientExceptionFilter` it is necessary apply it in `main.ts`.
+
+```typescript
+const { httpAdapter } = app.get(HttpAdapterHost);
+app.useGlobalFilters(new PrismaClientExceptionFilter(httpAdapter));
 ```
 
 ## Test
